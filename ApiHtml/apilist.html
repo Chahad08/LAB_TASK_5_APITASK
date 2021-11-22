@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List Of Package</title>
+</head>
+<body onload="load()">
+
+    <h2> Prodcut Details</h2>
+    <li id="name"></li>
+    <li id="desc"></li>
+    <li id="shortdesc"></li>
+    <li id="price"></li>
+    
+
+
+</body>
+<script> 
+    function load(){
+        const xhttp=new XMLHttpRequest();
+        xhttp.onreadystatechange=function(){
+            if (this.readyState == 4 && this.status ==200 ){
+                var obj_arr=JSON.parse(this.responseText);
+                document.getElementById("name").innerHTML =obj_arr[1].name;
+                document.getElementById("desc").innerHTML =obj_arr[1].desc;
+                document.getElementById("shortdesc").innerHTML =obj_arr[1].shortdesc;
+                document.getElementById("price").innerHTML =obj_arr[1].price;
+
+            }
+        };
+        xhttp.open("GET","http://127.0.0.1:8000/api/packages/list");
+        xhttp.send();
+    }
+</script>
+</html>
